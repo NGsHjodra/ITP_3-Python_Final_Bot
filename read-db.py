@@ -1,5 +1,6 @@
 import logging
 import os
+import socket
 
 import psycopg2
 from dotenv import load_dotenv
@@ -10,7 +11,8 @@ def main():
 
     # connect to the PostgreSQL server
     logging.info('Connecting to the PostgreSQL database...')
-    conn = psycopg2.connect(host=os.getenv('POSTGRES_HOST_EXTERNAL'),
+    DOCKER_HOST = socket.gethostbyname('docker.for.mac.localhost')  # Use the IP address of your Docker host here
+    conn = psycopg2.connect(host=DOCKER_HOST,
                             database=os.getenv('POSTGRES_DB'),
                             user=os.getenv('POSTGRES_USER'),
                             password=os.getenv('POSTGRES_PASSWORD'))
